@@ -1,0 +1,81 @@
+<html>
+<head>
+    <title>隨機選擇器</title>
+    <link rel="icon" type="image/png" href="/data/img/work.png">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.0/css/all.min.css">
+    <link href="//fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/textfit@2.4.0/textFit.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <link rel="stylesheet" href="styles/main.css">
+</head>
+<body class="min-vh-100 d-flex flex-column">
+    <header>
+        <div class="header-inner">
+            <nav class="navbar navbar-dark bg-transparent py-3"">
+                <div class="nav-inner container">
+                    <a class="navbar-brand">隨機選擇器</a>
+                    <ul class="navbar-nav ml-md-auto">
+                        <li class="nav-item">
+                            <a href="#item-setting" class="nav-link">選項設定</a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+        </div>
+    </header>
+    <main>
+        <div class="main-inner container">
+            <div class="result-container py-3">
+                <div class="result-label text-center">
+                    <h3 id="result-value">-</h3>
+                </div>
+                <div class="run-result-container text-center">
+                    <button class="btn btn-primary" id="run-result">Run</button>
+                </div>
+            </div>   
+            <hr id="item-setting"/>
+            <div class="items-container py-3">
+                <h3 class="item-container-title text-center mb-5">選項設定</h3>
+                <div class="row row-cols-1 row-cols-md-3 cards" id="items">
+                    <div class="col mb-4" v-for="(group,index) in groups">
+                        <div class="card bg-transparent" v-bind:class="actived=='group-' + index? 'card-active' : ''" v-bind:id="'group-' + index">
+                            <div class="card-header">
+                                <h5 class="card-title mb-0">
+                                    <i class="far fa-circle" v-on:click="setActive(index)"></i>
+                                    <input type="text" name="card-title" placeholder="群組名稱" v-model="group.title">
+                                </h5>
+                            </div>
+                            <div class="card-body">
+                                <textarea placeholder="請輸入選項，用「換行」來分隔不同選項。" v-model="group.items"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col mb-4">
+                        <div class="card bg-transparent card-plus"  v-on:click="addGroup">
+                            <div class="card-body">
+                                <i class="fas fa-plus"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>     
+        </div>
+    </main>
+    <footer>
+        <div class="footer-inner">
+            <div class="copyright container py-3">
+                <hr />
+                <span>&copy; 2020 LuSkywalker</span>
+            </div>
+        </div>
+    </footer>
+    <script src="scripts/index.js"></script>
+</body>
+</html>

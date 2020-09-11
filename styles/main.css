@@ -1,0 +1,154 @@
+body {
+    background: #272D38;
+    color: #93969c;
+}
+
+header .header-inner nav .navbar-brand {
+    color: #93969c;
+    font-weight: bold;
+}
+
+main {
+    flex: 1 0 auto;
+}
+
+main .result-label {
+    height: 70vh;
+}
+
+main .result-label h3#result-value {
+    font-size: 10rem;
+    color: #2C7063;
+    overflow: hidden;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+main .result-label h3#result-value.running {
+    color: #A2636E;
+}
+
+main .items-container .cards .card {
+    border-color: #93969c;
+    border-width: 2px;
+    height: 35vh;
+}
+
+main .items-container .cards .card:hover {
+    border-color: #665886 !important;
+}
+
+main .items-container .cards .card.card-active {
+    border-color: #665886;
+}
+
+main .items-container .cards .card .card-header {
+    border-bottom: 1px solid rgba(102, 88, 134, .125)
+}
+
+main .items-container .cards .card.card-active .card-header {
+    border-color: #665886;
+    color: #665886;
+}
+
+main .items-container .cards .card.card-active .card-header i {
+    font-weight: 900;
+}
+
+main .items-container .cards .card.card-active .card-header i:before {
+    content: '\f058';
+}
+
+main .items-container .cards .card.card-plus {
+    border-color: rgba(147, 150, 156, .5);
+    color: rgba(147, 150, 156, .5);
+}
+
+main .items-container .cards .card.card-plus:hover {
+    color: #665886 !important;
+}
+
+main .items-container .cards .card.card-plus .card-body {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+main .items-container .cards .card.card-plus .card-body i{
+    font-size: 6.75rem;
+}
+
+footer {
+    font-size: .8rem;
+}
+
+.btn-primary {
+    color: #A2636E;
+    background-color: #272D38;
+    border-color: #A2636E;
+    font-weight: bold;
+    text-transform: uppercase;
+    cursor: pointer;
+}
+
+.btn-primary:not(:disabled):not(.disabled):hover, .btn-primary:not(:disabled):not(.disabled):active, .btn-primary:not(:disabled):not(.disabled):focus  {
+    color: #d1b1b7;
+    background-color: #A2636E;
+    border-color: #A2636E;
+}
+
+.btn-primary:not(:disabled):not(.disabled).active:focus, .btn-primary:not(:disabled):not(.disabled):active:focus, btn-primary.focus, .btn-primary:focus {
+    box-shadow: 0 0 0 0.2rem rgb(212, 171, 173, .5)
+}
+
+.btn-primary:disabled {
+    color: #d1b1b7;
+    background-color: #A2636E;
+    border-color: #A2636E;
+    opacity: .5;
+    cursor: wait !important; 
+}
+
+hr {
+    border-color: rgba(212, 171, 173, .1);
+}
+
+input, textarea {
+    color: #93969c;
+    background: transparent;
+    border: 0;
+}
+
+input {
+    width: 80%;
+}
+
+textarea {
+    height: calc(33vh - 51px - 2.5rem);
+    resize: none;
+    width: 100%;
+}
+
+input:focus, textarea:focus {
+    outline: 0;
+}
+
+@media (min-width: 576px) { 
+    .cards {
+        column-count: 1;
+    }
+}
+
+@media (min-width: 768px) { 
+    .cards {
+        column-count: 2;
+    }
+}
+
+@media (min-width: 992px) { 
+    .cards {
+        column-count: 3;
+    }
+}

@@ -27,10 +27,15 @@ header .header-inner nav.navbar-dark .navbar-brand:hover {
 
 header .header-inner nav .navbar-brand .brand-logo { 
     animation: cycle-logo 1s linear infinite;
+}
+
+header .header-inner nav .navbar-brand .brand-logo:not(.active) { 
     animation-play-state: paused; 
 }
 
-header .header-inner nav .navbar-brand .brand-logo:hover { 
+
+header .header-inner nav .navbar-brand .brand-logo:hover,
+header .header-inner nav .navbar-brand .brand-logo.active { 
     animation-play-state: running; 
 }
 
@@ -129,8 +134,8 @@ main .items-container .cards .card.card-plus .card-body i{
     font-size: 6.75rem;
 }
 
-main .info-container .info-block b {
-    font-family: 'Roboto Mono', monospace;
+.lib-logo {
+    width: 10%;
 }
 
 footer {
@@ -191,6 +196,33 @@ footer {
     cursor: wait !important; 
 }
 
+.btn-outline-info {
+    color: #2C7063;
+    background-color: #272D38;
+    border-color: #2C7063;
+    font-weight: bold;
+    text-transform: uppercase;
+    cursor: pointer;
+}
+
+.btn-outline-info:not(:disabled):not(.disabled):hover, .btn-outline-info:not(:disabled):not(.disabled):active, .btn-outline-info:not(:disabled):not(.disabled):focus  {
+    color: #b3acc3;
+    background-color: #2C7063;
+    border-color: #2C7063;
+}
+
+.btn-outline-info:not(:disabled):not(.disabled).active:focus, .btn-outline-info:not(:disabled):not(.disabled):active:focus, btn-outline-info.focus, .btn-outline-info:focus {
+    box-shadow: 0 0 0 0.2rem rgba(44, 112, 99, .5);
+}
+
+.btn-outline-info:disabled {
+    color: #b3acc3;
+    background-color: #2C7063;
+    border-color: #2C7063;
+    opacity: .5;
+    cursor: wait !important; 
+}
+
 hr {
     border-color: rgba(212, 171, 173, .1);
 }
@@ -230,8 +262,29 @@ input:focus, textarea:focus {
     outline: 0;
 }
 
+a {
+    color: #93969c;
+}
+
+tr {
+    border-bottom: 1px solid rgba(147,150,156,.175);
+}
+
+tr:last-child {
+    border-bottom: 0;
+}
+
 #b2t-container {
     transition: bottom .3s ease;
+}
+
+#b2t-container button {
+    width: 60px;
+    height: 60px;
+}
+
+#b2t-container button i {
+    font-size: 2rem;
 }
 
 @media (min-width: 576px) { 

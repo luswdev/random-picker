@@ -70,9 +70,6 @@ let app = new Vue({
                 $('[data-toggle="tooltip"]').tooltip()
             }, this.durning)
         }
-    },
-    mounted: function () {
-        $('[data-toggle="tooltip"]').tooltip()
     }
 })
 
@@ -91,7 +88,12 @@ let items = new Vue({
     methods: {
         emptyGroup: function () {
             this.actived = "group-0"
-            this.groups = [{"title": "", "items": ""}]
+            this.groups = [
+                {
+                    "title": "預設群組",
+                    "items": "範例\n在這裡輸入選項\n用換行來區隔不同選項\n例如\n選項一\n選項二\n不同選項\n按旁邊的加號可以新增群組\n點選圓圈處選擇要使用的群組",
+                }
+            ]
         },
         addGroup: function () {
             this.groups.push({"title": "", "items": ""})
@@ -99,22 +101,88 @@ let items = new Vue({
         setActive: function (index) {
             this.actived = "group-" + index
             this.activedIndex = index
+        },
+        importOption: function (e) {
+            var fr=new FileReader()
+            var text='';
+            fr.addEventListener('load', (event) => {
+                text = event.target.result
+                this.groups = JSON.parse(text)
+            });
+            fr.readAsText(e.target.files[0])
+        },
+        exportOption: function () {
+            var json = new Blob([JSON.stringify(this.groups, null, '\t')], {type: 'text/plain'})
+            var jfile = window.URL.createObjectURL(json)
+            const a = document.createElement('a')
+            a.style.display = 'none'
+            a.href = jfile
+            a.download = `random-picker-setting.json`
+            document.body.appendChild(a)
+            a.click()
+            window.URL.revokeObjectURL(jfile)
         }
+    },
+    beforeMount: function() { 
+        if (Cookies.get('items')) {
+            this.groups = JSON.parse(Cookies.get('items'))
+        }
+     },
+    updated: function() {
+        Cookies.set('items', JSON.stringify(this.groups))
     }
 })
+
+axios.get(`data/website-info.json?nocache=${new Date()}`)
+    .then(function (response) {
+        let json = response.data;
+
+        let depLib = new Vue({
+            el: '#dependence-lib',
+            data: {
+                dependence: json.dependence
+            },
+            mounted: function () {
+                $('[data-toggle="tooltip"]').tooltip()
+            }
+        }) 
+        
+        let ver = new Vue({
+            el: '#version',
+            data: {
+                versions: json.changeLog
+            }
+        }) 
+
+        let copyright = new Vue({
+            el: '#copyright',
+            data: {
+                versions: json.changeLog.reverse()[0].ver
+            }
+        }) 
+    })
+    .catch(function (error) {
+        console.log(error);
+    })
+
 
 let b2t = new Vue({
     el: '#b2t-container',
     data: {
         isTop: true,
         styles: {
-            bottom: '-60px'
+            bottom: '-120px'
         }
     },
     mounted: function () {
         window.addEventListener('scroll', () => {
             this.isTop = !(document.body.scrollTop > 0);
-            this.styles.bottom = this.isTop ? '-60px' : '0' 
+            this.styles.bottom = this.isTop ? '-120px' : '0' 
         })
     }
+})
+
+let blogo = new Vue({
+    el: '#blogo',
+    data: app._data
 })

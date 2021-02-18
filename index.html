@@ -4,17 +4,19 @@
     <link rel="icon" type="image/png" href="images/favicon.svg">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, user-scalable=no" />
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <link rel="stylesheet" href="//stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.0/css/all.min.css">
     <link href="//fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css">
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/csshake/1.5.3/csshake.min.css" integrity="sha512-RliK2gk03WxUELn57ddjWLhEfhUiOZ85VvWLImFy8A7FOPMkF4Z9YGQ3VKX5jpwkEerAL6I0nC+JNeCPrxWBTw==" crossorigin="anonymous" />
+    <link href="//fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
+    <link href="//fonts.googleapis.com/css2?family=Roboto+Mono:wght@400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/csshake/1.5.3/csshake.min.css" integrity="sha512-RliK2gk03WxUELn57ddjWLhEfhUiOZ85VvWLImFy8A7FOPMkF4Z9YGQ3VKX5jpwkEerAL6I0nC+JNeCPrxWBTw==" crossorigin="anonymous" />
 
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="//code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="//cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+    <script src="//stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+    <script src="//cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="//unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/js-cookie@rc/dist/js.cookie.min.js"></script>
 
     <link rel="stylesheet" href="styles/main.css">
 </head>
@@ -23,11 +25,10 @@
         <div class="header-inner">
             <nav class="navbar navbar-expand navbar-dark flex-column flex-md-row py-3">
                 <div class="nav-inner container">
-                    <a class="navbar-brand">
-                        <img width="25" height="30" class="d-inline-block align-top brand-logo" src="images/favicon.svg" alt="fav">
+                    <a class="navbar-brand" id="blogo">
+                        <img width="25" height="30" class="d-inline-block align-top brand-logo" v-bind:class="{'active': running}" src="images/favicon.svg" alt="fav">
                         隨機選擇器
                         <img src="data:image/gif;base64,R0lGODlhFwALAJEAAP///wBmmf///wAAACH5BAUUAAIALAAAAAAXAAsAAAImVI6pa+sP4wP0UBCuxYtjboVZV2WlpyneiKxsksYiKNV21NyKUAAAOw==">
-
                     </a>
                     <ul class="navbar-nav ml-md-auto">
                         <li class="nav-item">
@@ -45,7 +46,9 @@
         <div class="main-inner container">
             <div class="result-container py-3" id="app">
                 <div class="result-label text-center">
-                    <h3 id="result-value" v-bind:class="{'running': running}" v-bind:title="items[index]" data-toggle="tooltip" data-placement="top" >{{items[index]}}</h3>
+                    <h3 id="result-value" v-bind:class="{'running': running}" v-bind:title="items[index]" data-toggle="tooltip" data-placement="top" >
+                        {{items[index]}}
+                    </h3>
                 </div>
                 <div class="run-result-container text-center">
                     <button class="btn btn-primary shake-slow shake-constant shake-freeze" @click="runCycle" v-bind:disabled="running">
@@ -74,45 +77,64 @@
                     <div class="col mb-4">
                         <div class="card bg-transparent card-plus"  @click="addGroup">
                             <div class="card-body">
-                                <i class="fas fa-plus"></i>
+                                <i class="fas fa-plus-circle"></i>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="clear-container text-right">
-                    <button class="btn btn-danger" @click="emptyGroup">重置選項</button>
+                    <input type="file" name="importSetting" id="importSetting" class="d-none" @change="importOption">
+                    <label class="btn btn-outline-info mb-0" for="importSetting">匯入</label>
+                    <button class="btn btn-outline-info" @click="exportOption">匯出</button>
+                    <button class="btn btn-danger" @click="emptyGroup">重置</button>
                 </div>
             </div>     
             <hr id="web-info"/>
             <div class="info-container py-3">
                 <h3 class="info-container-title text-center mb-5">關於本站</h3>
                 <div class="info-block text-center">
-                    本站是以 JavaScript 所撰寫的一個隨機選擇器，開放原始碼於 <a href="//github.com/luswdev/random-picker">GitHub</a> 上。
+                    <p>
+                        本站是以 JavaScript 所撰寫的一個隨機選擇器，開放原始碼於 
+                        <a href="//github.com/luswdev/random-picker">GitHub</a> 
+                        上。
+                    </p>
                     <h4 class="mt-5">免責聲明</h4>
-                    本站將不會儲存使用者的任何資訊，相關使用者設定將以 cookies 儲存於使用者本機。
+                    <p>
+                        本站將不會儲存使用者的任何資訊，相關使用者設定將以 cookies 儲存於使用者本機。
+                    </p>
                     <h4 class="mt-5">相關程式庫</h4>
-                    以下將會列出本站所使用的開源程式庫：<br><br>
-                    <b>Bootstrap 4</b> 前端框架<br>
-                    <b>Vue.js</b> 前端渲染引擎<br>
-                    <b>Palettable</b> 配色生成網頁<br>
-                    <b>CSShake</b> CSS 震動效果動畫<br>
-                    <b>FontAwesome 5</b> 網頁圖示字體庫<br>
-                    <b>Google Fonts</b> 網頁字型提供<br>
-                    <b>Flaticon</b> 免費向量圖示下載網站<br>
-                    <b>Apache2</b> 網站伺服器<br>
+                    <p id="dependence-lib">
+                        以下將會列出本站所使用的開源程式庫：<br><br>
+                        <a v-for="lib in dependence" :href="lib.url" target="_blank">
+                            <img :src="'images/' + lib.logo" :alt="lib.name" class="lib-logo m-3" data-toggle="tooltip" data-html="true" data-placement="top" :title="'<b>'+ lib.name + '</b><br>' + lib.description">
+                        </a>
+                    </p>
+                    <h4 class="mt-5">版本資訊</h4>
+                    <p>
+                        <table class="mx-auto" id="version">
+                            <tbody>
+                                <tr v-for="log in versions">
+                                    <td class="px-3 py-2">
+                                        <b>v{{log.ver}}</b>
+                                    </td>
+                                    <td class="px-3 py-2" v-html="log.note.join('<br>')"></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </p>
                 </div>
             </div>
         </div>
     </main>
     <footer>
-        <div class="footer-inner copyright container py-3">
+        <div class="footer-inner copyright container py-3" id="copyright">
             <hr />
-            <span>&copy; 2020 LuSkywalker</span>
+            <span>&copy; 2020 LuSkywalker {{versions}}</span>
         </div>
         <div class="text-right fixed-bottom m-3" v-bind:style="styles" id="b2t-container">
-            <a class="btn btn-danger" id="b2t" href="#top">
+            <button class="btn btn-danger rounded-circle" id="b2t" onclick="javascript:document.body.scrollTop = 0">
                 <i class="fas fa-chevron-up"></i>
-            </a>
+            </button>
         </div>
     </footer>
     <script src="scripts/index.js"></script>

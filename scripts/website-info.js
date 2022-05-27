@@ -1,4 +1,4 @@
-{
+const website_info = {
     "dependence": [
         {
             "name": "Bootstrap 4",

@@ -133,38 +133,29 @@ let items = new Vue({
     }
 })
 
-axios.get(`data/website-info.json?nocache=${new Date()}`)
-    .then(function (response) {
-        let json = response.data;
+let depLib = new Vue({
+    el: '#dependence-lib',
+    data: {
+        dependence: website_info.dependence
+    },
+    mounted: function () {
+        $('[data-toggle="tooltip"]').tooltip()
+    }
+})
 
-        let depLib = new Vue({
-            el: '#dependence-lib',
-            data: {
-                dependence: json.dependence
-            },
-            mounted: function () {
-                $('[data-toggle="tooltip"]').tooltip()
-            }
-        }) 
-        
-        let ver = new Vue({
-            el: '#version',
-            data: {
-                versions: json.changeLog
-            }
-        }) 
+let ver = new Vue({
+    el: '#version',
+    data: {
+        versions: website_info.changeLog
+    }
+})
 
-        let copyright = new Vue({
-            el: '#copyright',
-            data: {
-                versions: json.changeLog.reverse()[0].ver
-            }
-        }) 
-    })
-    .catch(function (error) {
-        console.log(error);
-    })
-
+let copyright = new Vue({
+    el: '#copyright',
+    data: {
+        versions: website_info.changeLog.reverse()[0].ver
+    }
+})
 
 let b2t = new Vue({
     el: '#b2t-container',
